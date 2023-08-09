@@ -131,7 +131,12 @@ module.exports = (env, argv, { SRC_DIR, ENTRY }) => {
       extensions: ['.js', '.jsx', '.json', '.ts', '.tsx', '*'],
       // symlinked resources are resolved to their real path, not their symlinked location
       symlinks: true,
-      fallback: { fs: false, path: false, zlib: false },
+      fallback: {
+        fs: false,
+        path: false,
+        zlib: false,
+        "buffer": require.resolve("buffer")
+      },
     },
     plugins: [
       new webpack.DefinePlugin({
@@ -154,6 +159,11 @@ module.exports = (env, argv, { SRC_DIR, ENTRY }) => {
         'process.env.REACT_APP_I18N_DEBUG': JSON.stringify(
           process.env.REACT_APP_I18N_DEBUG || ''
         ),
+      }),
+      // Work around for Buffer is undefined
+      // https://github.com/webpack/changelog-v5/issues/10
+      new webpack.ProvidePlugin({
+        Buffer: ['buffer', 'Buffer'],
       }),
       // Uncomment to generate bundle analyzer
       // new BundleAnalyzerPlugin(),

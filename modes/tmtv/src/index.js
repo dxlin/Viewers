@@ -29,6 +29,7 @@ const extensionDependencies = {
   '@ohif/extension-default': '^3.0.0',
   '@ohif/extension-cornerstone': '^3.0.0',
   '@ohif/extension-tmtv': '^3.0.0',
+  '@ohif/extension-dicom-rtss': '^0.0.1',
 };
 
 let unsubscriptions = [];
